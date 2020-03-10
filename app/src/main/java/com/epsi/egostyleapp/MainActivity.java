@@ -27,11 +27,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.mesbons :
                         startActivity(new Intent(getApplicationContext(),
                                 CouponActivity.class));
+                        finish();
                                 overridePendingTransition(0,0);
                                 return true;
                     case R.id.scanner :
                         startActivity(new Intent(getApplicationContext(),
                                 ScanActivity.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
 
