@@ -29,14 +29,17 @@ public class CouponActivity extends AppCompatActivity {
                     case R.id.scanner :
                         startActivity(new Intent(getApplicationContext(),
                                 ScanActivity.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
 
                     case R.id.home :
                         startActivity(new Intent(getApplicationContext(),
                                 MainActivity.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
+
                 }
                 return false;
             }

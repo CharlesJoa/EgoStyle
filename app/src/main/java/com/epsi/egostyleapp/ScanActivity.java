@@ -36,6 +36,7 @@ public class ScanActivity extends AppCompatActivity {
                     case R.id.mesbons :
                         startActivity(new Intent(getApplicationContext(),
                                 CouponActivity.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.scanner :
@@ -44,6 +45,7 @@ public class ScanActivity extends AppCompatActivity {
                     case R.id.home :
                         startActivity(new Intent(getApplicationContext(),
                                 MainActivity.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                 }
