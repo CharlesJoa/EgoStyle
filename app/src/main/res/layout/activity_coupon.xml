@@ -15,9 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contextClickable="false"
-
         android:fadeScrollbars="true"
-
         android:focusable="auto"
         android:scrollbars="vertical"
         app:fastScrollEnabled="false"
