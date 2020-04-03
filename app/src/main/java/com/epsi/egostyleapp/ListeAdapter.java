@@ -1,6 +1,7 @@
 package com.epsi.egostyleapp;
 
 import android.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +10,22 @@ import android.widget.TextView;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder> {
-
-    private final List<Pair<String, String>> reductions = Arrays.asList(
+    private List<Pair<String, String>> reductions = Arrays.asList(
             Pair.create("-20% sur votre jean préférédgdffgdfgfgdgdfgdfgd", "2020-06-15"),
             Pair.create("-40% sur toutes les vestes", "2020-06-17"),
-            Pair.create("10% de réduction pour 2 articles achetés", "2020-07-23"),
-            Pair.create("-30% sur les t-shirts bleus", "2020-06-15")
+            Pair.create("10% de réduction pour 2 articles achetés", "2020-07-23")
     );
-
+    private List<Pair<String, String>> m_coupons;
+    public ListeAdapter(ArrayList<String> toto, ArrayList<String> dates){
+//        for (int i = 0; i<toto.size(); i++){
+//            m_coupons.add(Pair.create(toto.get(i),dates.get(i)));
+//        }
+    };
     @Override
     public int getItemCount() {
         return reductions.size();
