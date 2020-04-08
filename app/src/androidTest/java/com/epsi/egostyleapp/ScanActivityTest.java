@@ -1,40 +1,30 @@
 package com.epsi.egostyleapp;
 
-import android.view.View;
-
 import androidx.test.rule.ActivityTestRule;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class ScanActivityTest {
 
     @Rule
-    public ActivityTestRule<ScanActivity> scanActivityActivityTestRule = new ActivityTestRule<ScanActivity>(ScanActivity.class);
+    public ActivityTestRule<ScanActivity> mActivityRule =
+            new ActivityTestRule<>(ScanActivity.class);
 
-    private ScanActivity scanActivity = null;
-
-    @Before
-    public void setUp() throws Exception {
-        scanActivity = scanActivityActivityTestRule.getActivity();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        scanActivity = null;
+    @Test
+    public void scannerTitleDisplayTest(){
+        onView(withId(R.id.textView3)).check(matches(withText("Scanner de QR code")));
     }
 
     @Test
-    public void testScanLaunch() {
-        View view = scanActivity.findViewById(R.id.textView3);
-        assertNotNull(view);
+    public void scanButtonDisplayTest() {
+        onView(withId(R.id.btn_scan)).check(matches(isDisplayed()));
     }
 
-    @Test
-    public void onActivityResult() {
-    }
 }
