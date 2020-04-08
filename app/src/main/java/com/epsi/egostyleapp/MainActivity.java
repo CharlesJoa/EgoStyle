@@ -43,9 +43,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MainActivity extends AppCompatActivity {
-    public ArrayList<String> titi = new ArrayList<>();
-    public ArrayList<String> dates = new ArrayList<>();
-    String toto = null;
+    public ArrayList<Pair<String,String>> pairs = new ArrayList<>();
+    String description = null;
+    String date_limite = null;
 
 
     @Override
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView textView = (TextView) findViewById(R.id.textView2);
+        final RecyclerView rv = findViewById(R.id.ListCoupon);
         /******************************************************/
        RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://192.168.1.96/EgoStyleAPI/android_connect/api_all_coupons.php"; // on doit mettre l'adresse ip privée en dur car localhost ne fonctionne pas
@@ -71,29 +72,29 @@ public class MainActivity extends AppCompatActivity {
                             jsonArray = new JSONArray(response);
                             for(int i=0; i<jsonArray.length(); i++){
                                 coupon = (JSONObject) jsonArray.get(i);
-                                toto = coupon.getString("description");
-                                Log.d("flipper", "Value: " + toto);
-//                                m_coupons.add(Pair.create(coupon.getString("description"), coupon.getString("date_limite")));
+                                description = coupon.getString("description");
+                                date_limite = coupon.getString("date_limite");
+                                Pair<String,String> pair = Pair.create(description, date_limite);
+                                pairs.add(pair);
                             }
-//                            Log.d("toto", "val:"+m_coupons);
+                            rv.setAdapter(new ListeAdapter(pairs)); //contenu de la liste
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 textView.setText("That didn't work!");
             }
+
         });
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
         /******************************************************/
-
-        final RecyclerView rv = findViewById(R.id.ListCoupon);
         rv.setLayoutManager(new LinearLayoutManager(this)); //positionnement des éléments
-        rv.setAdapter(new ListeAdapter(titi,dates)); //contenu de la liste
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.home);
