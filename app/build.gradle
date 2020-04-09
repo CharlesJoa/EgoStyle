@@ -42,5 +42,15 @@ dependencies {
 
     //JUnit4
     testImplementation 'junit:junit:4.12'
+
+    //AndroidJUnitRunner and JUnit Rules
+    def androidx_test = '1.2.O'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
+
+    //Espresso
+    def androidx_test_espresso ='3.2.O'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
 }
