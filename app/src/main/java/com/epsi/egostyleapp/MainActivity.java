@@ -5,16 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,23 +20,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.simple.parser.*;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class MainActivity extends AppCompatActivity {
+    // Create a list of Pair (2 elements of String type: description, date_limite)
     public ArrayList<Pair<String,String>> pairs = new ArrayList<>();
     String description = null;
     String date_limite = null;
@@ -57,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         final RecyclerView rv = findViewById(R.id.ListCoupon);
         /******************************************************/
        RequestQueue queue = Volley.newRequestQueue(this);
+       // Specify the URL of the API
         String url ="http://192.168.1.96/EgoStyleAPI/android_connect/api_all_coupons.php"; // on doit mettre l'adresse ip privée en dur car localhost ne fonctionne pas
 
         // Request a string response from the provided URL.
@@ -64,19 +46,24 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
+                        // Create JSON Array and object to navigate in them
                         JSONObject coupon = null;
                         JSONArray jsonArray = null;
 
                         try {
+                            // Create a JSONArray from the response given by the API
                             jsonArray = new JSONArray(response);
+                            // Navigate through each element of the array of te response
                             for(int i=0; i<jsonArray.length(); i++){
                                 coupon = (JSONObject) jsonArray.get(i);
+                                // For each element of the array we get the description and the date_limite field
                                 description = coupon.getString("description");
                                 date_limite = coupon.getString("date_limite");
+                                // We create a pair element with the description and the date_limite to send it and display on the screen
                                 Pair<String,String> pair = Pair.create(description, date_limite);
                                 pairs.add(pair);
                             }
+                            // Create the adapter to manage the recyclerview and send the array of the pairs
                             rv.setAdapter(new ListeAdapter(pairs)); //contenu de la liste
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -96,9 +83,12 @@ public class MainActivity extends AppCompatActivity {
         /******************************************************/
         rv.setLayoutManager(new LinearLayoutManager(this)); //positionnement des éléments
 
+        // Menu navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        // Set the current menu to Home
         bottomNavigationView.setSelectedItemId(R.id.home);
 
+        // Create a listener on the navigation bar to change the activity on click
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             //mesbons c'est l'id du bouton pour acceder aux coupons
