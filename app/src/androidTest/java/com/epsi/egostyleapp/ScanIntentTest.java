@@ -1,5 +1,9 @@
 package com.epsi.egostyleapp;
 
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.content.Intent;
+
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
 import org.junit.Rule;
@@ -8,6 +12,8 @@ import org.junit.Test;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intending;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -27,21 +33,12 @@ public class ScanIntentTest {
 
     @Test
     public void validateScanIntent() {
-       // Intents.intending(not(isInternal())).respondWith(result);
+        Intent resultData = new Intent();
+        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, resultData);
+        intending(hasAction("com.google.zxing.client.android.SCAN")).respondWith(result);
+        onView(withId(R.id.btn_scan)).perform(click());
     }
 
-    @Test
-    public void onActivityResult(){
-        
-    }
 }
-
-        /*
-        Intents.intending(hasAction("com.google.zxing.client.android.SCAN"));
-        onView(withId(R.id.btn_scan)).check(matches(isDisplayed())).perform(click());
-        Intents.intended(Matchers.allOf(
-                hasAction("com.google.zxing.client.android.SCAN"),
-                hasExtra("SCAN_MODE", "QR_CODE_MODE")));
-*/
 
 

@@ -1,6 +1,8 @@
 package com.epsi.egostyleapp;
 
 
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
@@ -9,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -33,19 +36,35 @@ public class MainActivityTest {
     }
 
     @Test
+    public void recyclerViewScrollTest(){
+        //verify it we can scroll through the list in recycler view
+        RecyclerView recyclerView = mActivityRule.getActivity().findViewById(R.id.ListBon);
+        int itemcount = recyclerView.getAdapter().getItemCount();
+        onView(withId(R.id.ListBon)).perform(RecyclerViewActions.scrollToPosition(itemcount-1));
+    }
+
+    @Test
     public void bottomNavigationDisplayTest(){
         onView(withId(R.id.bottom_navigation)).check(matches(isDisplayed()));
     }
 
-    /*
     @Test
-    public void bottomNavigationTest(){
-        onView(withId(R.id.mesbons)).perform(click());
-        intended(hasComponent(CouponActivity.class.getName()));
+    public void bottomNavigationListTest(){
+        onView(withId(R.id.home)).perform(click()).check(matches(isDisplayed()));
 
-       // onView(withId(R.id.scanner)).perform(click());
-       // intended(hasComponent(ScanActivity.class.getName()));
     }
 
-     */
+    @Test
+    public void bottomNavigationScannerTest(){
+        onView(withId(R.id.scanner)).perform(click()).check(matches(isDisplayed()));
+
+    }
+
+    @Test
+    public void bottomNavigationMesCouponTest(){
+        onView(withId(R.id.mesbons)).perform(click()).check(matches(isDisplayed()));
+
+    }
+
+
 }

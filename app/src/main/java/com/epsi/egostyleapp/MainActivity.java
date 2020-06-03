@@ -1,14 +1,16 @@
 package com.epsi.egostyleapp;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.TextView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -20,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         /******************************************************/
        RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url ="http://192.168.56.1/android_connect/api_all_coupons.php"; // on doit mettre l'adresse ip privée en dur car localhost ne fonctionne pas
+        String url ="http://192.168.56.1/EgoStyleAPI/android_connect/api_all_coupons.php"; // on doit mettre l'adresse ip privée en dur car localhost ne fonctionne pas
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
