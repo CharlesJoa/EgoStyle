@@ -1,8 +1,6 @@
 package com.epsi.egostyleapp;
 
 import android.app.AlertDialog;
-import android.text.LoginFilter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import java.text.SimpleDateFormat;
@@ -21,6 +18,7 @@ import java.util.Date;
 
 public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder> {
 
+    // Create the attribute of the list for the coupons
     private List<Pair<String, String>> m_coupons;
 
     public ListeAdapter(ArrayList<Pair<String, String>> coupons){
@@ -33,6 +31,7 @@ public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder
         return m_coupons.size();
     }
 
+    // Set the content view with the cell list view
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -40,6 +39,7 @@ public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder
         return new MyViewHolder(view);
     }
 
+    // Method who describe for each element the behavior (get the current element and display)
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Pair<String, String> pair = m_coupons.get(position);
@@ -59,6 +59,7 @@ public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder
             promotion = ((TextView) itemView.findViewById(R.id.list_cell_Reduc));
             date_limite = ((TextView) itemView.findViewById(R.id.list_cell_DateLimite));
 
+            // Create a listener when you click, a window spawns
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -70,6 +71,7 @@ public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder
             });
         }
 
+        // Method who manage the display
         public void display(Pair<String, String> pair) {
             currentPair = pair;
             promotion.setText(pair.first);
