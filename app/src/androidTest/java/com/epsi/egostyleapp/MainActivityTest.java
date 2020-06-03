@@ -29,7 +29,7 @@ public class MainActivityTest {
     @Test
     public void recyclerViewDisplayTest(){
         // verify the visibility of recycler view on screen
-        onView(withId(R.id.ListCoupon)).check(matches(isDisplayed()));
+        onView(withId(R.id.ListBon)).check(matches(isDisplayed()));
     }
 
     @Test

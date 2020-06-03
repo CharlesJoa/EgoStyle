@@ -15,12 +15,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder> {
 
     private List<Pair<String, String>> m_coupons;
+
     public ListeAdapter(ArrayList<Pair<String, String>> coupons){
         m_coupons = coupons;
     };
+
+
     @Override
     public int getItemCount() {
         return m_coupons.size();
@@ -66,7 +73,19 @@ public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder
         public void display(Pair<String, String> pair) {
             currentPair = pair;
             promotion.setText(pair.first);
-            date_limite.setText("Date d'expiration : "+ pair.second);
+            String date = pair.second;
+            try {
+                Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+                SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
+                String dateP = formatter1.format(date2);
+
+                date_limite.setText("Date d'expiration : "+ dateP);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+
         }
     }
 }

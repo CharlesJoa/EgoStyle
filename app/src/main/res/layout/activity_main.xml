@@ -20,7 +20,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ListCoupon"
+        android:id="@+id/ListBon"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
