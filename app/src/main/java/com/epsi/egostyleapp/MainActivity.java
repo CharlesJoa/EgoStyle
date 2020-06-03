@@ -5,18 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-<<<<<<< HEAD
-
-=======
->>>>>>> 38efd241839075dedb56b7cca2b39d500a5eb4ec
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
-<<<<<<< HEAD
-
-=======
->>>>>>> 38efd241839075dedb56b7cca2b39d500a5eb4ec
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,10 +20,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-<<<<<<< HEAD
-
-=======
->>>>>>> 38efd241839075dedb56b7cca2b39d500a5eb4ec
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,12 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         /******************************************************/
        RequestQueue queue = Volley.newRequestQueue(this);
-<<<<<<< HEAD
+
         String url ="http://192.168.56.1/android_connect/api_all_coupons.php"; // on doit mettre l'adresse ip privée en dur car localhost ne fonctionne pas
-=======
-       // Specify the URL of the API
-        String url ="http://192.168.1.96/EgoStyleAPI/android_connect/api_all_coupons.php"; // on doit mettre l'adresse ip privée en dur car localhost ne fonctionne pas
->>>>>>> 38efd241839075dedb56b7cca2b39d500a5eb4ec
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -100,13 +84,8 @@ public class MainActivity extends AppCompatActivity {
         /******************************************************/
         rv.setLayoutManager(new LinearLayoutManager(this)); //positionnement des éléments
 
-<<<<<<< HEAD
-
 
         /****************Navigation bar***************/
-=======
-        // Menu navigation
->>>>>>> 38efd241839075dedb56b7cca2b39d500a5eb4ec
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         // Set the current menu to Home
         bottomNavigationView.setSelectedItemId(R.id.home);
