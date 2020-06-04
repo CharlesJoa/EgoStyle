@@ -22,6 +22,8 @@ public class SplashScreenTest {
 
     private int splashScreenWaitingTime = 2000;
 
+
+
     @Test
     public void splashTitleDisplayTest() {
         onView(withId(R.id.splash_title)).check(matches(withText("EgoStyle")));

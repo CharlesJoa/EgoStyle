@@ -1,15 +1,18 @@
 package com.epsi.egostyleapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class SplashScreen extends AppCompatActivity {
 
-    /** Waiting delay **/
+    /**
+     * Waiting delay
+     **/
     private final int SPLASH_DISPLAY_LENGTH = 2000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

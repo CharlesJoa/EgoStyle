@@ -27,10 +27,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     // Create a list of Pair (2 elements of String type: description, date_limite)
-    public ArrayList<Pair<String,String>> pairs = new ArrayList<>();
+    public ArrayList<Pair<String, String>> pairs = new ArrayList<>();
     String description = null;
     String date_limite = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
         final RecyclerView rv = findViewById(R.id.ListBon);
 
         /******************************************************/
-       RequestQueue queue = Volley.newRequestQueue(this);
+        RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url ="http://192.168.56.1/EgoStyleAPI/android_connect/api_all_coupons.php"; // on doit mettre l'adresse ip privée en dur car localhost ne fonctionne pas
+        // on doit mettre l'adresse ip privée en dur car localhost ne fonctionne pas
+        String url = Utils.getConnectionString();
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
                             // Create a JSONArray from the response given by the API
                             jsonArray = new JSONArray(response);
                             // Navigate through each element of the array of te response
-                            for(int i=0; i<jsonArray.length(); i++){
+                            for (int i = 0; i < jsonArray.length(); i++) {
                                 coupon = (JSONObject) jsonArray.get(i);
                                 // For each element of the array we get the description and the date_limite field
                                 description = coupon.getString("description");
                                 date_limite = coupon.getString("date_limite");
                                 // We create a pair element with the description and the date_limite to send it and display on the screen
-                                Pair<String,String> pair = Pair.create(description, date_limite);
+                                Pair<String, String> pair = Pair.create(description, date_limite);
                                 pairs.add(pair);
                             }
                             // Create the adapter to manage the recyclerview and send the array of the pairs
@@ -97,21 +97,21 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.mesbons :
+                switch (menuItem.getItemId()) {
+                    case R.id.mesbons:
                         startActivity(new Intent(getApplicationContext(),
                                 BonActivity.class));
                         finish();
-                                overridePendingTransition(0,0);
-                                return true;
-                    case R.id.scanner :
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.scanner:
                         startActivity(new Intent(getApplicationContext(),
                                 ScanActivity.class));
                         finish();
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
 
-                    case R.id.home :
+                    case R.id.home:
                         return true;
                 }
                 return false;

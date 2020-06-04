@@ -27,15 +27,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class ScanActivity extends AppCompatActivity {
     public String description_bon;
     public String date_limite_bon;
     public String codepromotion_bon;
     public ArrayList<Pair<String, String>> pairs = new ArrayList<>();
-    public ArrayList<String> list_already_scan;
+    public HashSet<String> list_already_scan = new HashSet<>();
     private Button btn_scan;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,57 +101,67 @@ public class ScanActivity extends AppCompatActivity {
                 String phrase_code = result.getContents();
                 //String phrase_code = "48957E04E8DF451A8844D4BD94AF705F"; // code en dur pour test
 
+                /** 3 -  partie requete **/
+                RequestQueue queue = Volley.newRequestQueue(this);
+                // on doit mettre l'adresse ip privée en dur car localhost ne fonctionne pas
+                String url_bon = Utils.getConnectionStringPhrase();
+                String url_api = url_bon + phrase_code;
+
                 /** 2 - Test si déjà scanner **/
-                for (int i = 0; i < list_already_scan.size(); i++) {
-                    String phraseEssai = list_already_scan.get(i);
+                for (String phraseEssai : list_already_scan) {
                     if (phraseEssai.equals(phrase_code)) {
                         Toast.makeText(this, "Code déjà scanner", Toast.LENGTH_LONG).show();
                     } else {
-                        list_already_scan.add(phrase_code);
-
-                        /** 3 -  partie requete **/
-                        RequestQueue queue = Volley.newRequestQueue(this);
-                        String url_bon ="http://192.168.56.1/android_connect/api_all_coupons.php?phrase=";          // on doit mettre l'adresse ip privée en dur car localhost ne fonctionne pas
-                        String url_api = url_bon+phrase_code;
-
-                        StringRequest stringRequest = new StringRequest(Request.Method.GET, url_api,
-                                new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-                                        JSONObject jsonbon = null;
-                                        Singleton singleton = Singleton.getInstance();
-                                        try {
-                                            jsonbon = new JSONObject(response);
-                                            description_bon = jsonbon.getString("description");
-                                            date_limite_bon = jsonbon.getString("date_limite");
-                                            codepromotion_bon = jsonbon.getString("codepromotion");
-                                            String code = description_bon + " - " + codepromotion_bon;
-
-                                            Pair<String, String> pair = Pair.create(code, date_limite_bon);
-                                            pairs.add(pair);
-
-                                            singleton.setPairList(pair);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                },
-
-                                new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        //textView.setText("That didn't work!");
-                                        //affichage reponse pb ?
-                                    }
-                                });
+                        StringRequest stringRequest = getStringRequest(url_api);
                         queue.add(stringRequest);
+                        list_already_scan.add(phrase_code);
                     }
-                    Toast.makeText(this,"Code scanné", Toast.LENGTH_LONG).show();
-                    }
+                    Toast.makeText(this, "Code scanné", Toast.LENGTH_LONG).show();
+                }
+                if (list_already_scan.size() == 0) {
+                    StringRequest stringRequest = getStringRequest(url_api);
+                    queue.add(stringRequest);
+                    list_already_scan.add(phrase_code);
+                    Toast.makeText(this, "Code scanné", Toast.LENGTH_LONG).show();
+                }
             }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
-        else{
-                super.onActivityResult(requestCode, resultCode, data);
-        }
+    }
+
+    private StringRequest getStringRequest(String url_api) {
+        return new StringRequest(Request.Method.GET, url_api,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonbon = null;
+                        Singleton singleton = Singleton.getInstance();
+                        if(!response.isEmpty()){
+                            try {
+                                jsonbon = new JSONObject(response);
+                                description_bon = jsonbon.getString("description");
+                                date_limite_bon = jsonbon.getString("date_limite");
+                                codepromotion_bon = jsonbon.getString("codepromotion");
+                                String code = description_bon + " - " + codepromotion_bon;
+
+                                Pair<String, String> pair = Pair.create(code, date_limite_bon);
+                                pairs.add(pair);
+
+                                singleton.setPairList(pair);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //textView.setText("That didn't work!");
+                        //affichage reponse pb ?
+                    }
+                });
     }
 }
