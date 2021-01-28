@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +20,7 @@ import java.util.Date;
 public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder> {
 
     // Create the attribute of the list for the coupons
-    private List<Pair<String, String>> m_coupons;
+    private final List<Pair<String, String>> m_coupons;
 
     public ListeAdapter(ArrayList<Pair<String, String>> coupons) {
         m_coupons = coupons;
@@ -32,6 +33,7 @@ public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder
     }
 
     // Set the content view with the cell list view
+    @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -46,7 +48,7 @@ public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder
         holder.display(pair);
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView promotion;
         private final TextView date_limite;
