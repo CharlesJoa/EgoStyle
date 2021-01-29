@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         final TextView textView = (TextView) findViewById(R.id.textView2);
         final RecyclerView rv = findViewById(R.id.ListBon);
+        rv.setAdapter(new ListeAdapter(pairs) );
 
         /******************************************************/
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -51,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Create JSON Array and object to navigate in them
-                        JSONObject coupon = null;
-                        JSONArray jsonArray = null;
+                        JSONObject coupon;
+                        JSONArray jsonArray;
 
                         try {
                             // Create a JSONArray from the response given by the API
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                textView.setText("That didn't work!");
+                textView.setText(error.getMessage());
             }
 
         });
