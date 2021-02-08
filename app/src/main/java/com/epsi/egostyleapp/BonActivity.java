@@ -31,8 +31,8 @@ public class BonActivity extends AppCompatActivity {
         final RecyclerView rv = findViewById(R.id.ListBonValide);
 
         Singleton singleton = Singleton.getInstance();
-        ArrayList<Pair<String, String>> pairs = singleton.getPairList();
-        rv.setAdapter(new ListeAdapter(pairs)); //contenu de la liste
+        ArrayList<Bon> bons = singleton.getPairList();
+        rv.setAdapter(new ListeAdapter(bons)); //contenu de la liste
         rv.setLayoutManager(new LinearLayoutManager(this)); //positionnement des éléments*/
 
         /**

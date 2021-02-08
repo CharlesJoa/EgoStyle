@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     // Create a list of Pair (2 elements of String type: description, date_limite)
-    public ArrayList<Pair<String, String>> pairs = new ArrayList<>();
+    public ArrayList<Bon> bons = new ArrayList<>();
     String description = null;
     String date_limite = null;
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         final TextView textView = (TextView) findViewById(R.id.textView2);
         final RecyclerView rv = findViewById(R.id.ListBon);
-        rv.setAdapter(new ListeAdapter(pairs) );
+        rv.setAdapter(new ListeAdapter(bons) );
 
         /******************************************************/
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -65,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
                                 description = coupon.getString("description");
                                 date_limite = coupon.getString("date_limite");
                                 // We create a pair element with the description and the date_limite to send it and display on the screen
-                                Pair<String, String> pair = Pair.create(description, date_limite);
-                                pairs.add(pair);
+                                Bon bon = new Bon(description, date_limite, null, null);
+                                bons.add(bon);
                             }
-                            // Create the adapter to manage the recyclerview and send the array of the pairs
-                            rv.setAdapter(new ListeAdapter(pairs)); //contenu de la liste
+                            // Create the adapter to manage the recyclerview and send the array of the bons
+                            rv.setAdapter(new ListeAdapter(bons)); //contenu de la liste
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

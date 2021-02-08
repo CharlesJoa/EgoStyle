@@ -33,7 +33,8 @@ public class ScanActivity extends AppCompatActivity {
     public String description_bon;
     public String date_limite_bon;
     public String codepromotion_bon;
-    public ArrayList<Pair<String, String>> pairs = new ArrayList<>();
+    public String type_bon;
+    public ArrayList<Bon> pairs = new ArrayList<>();
     public HashSet<String> list_already_scan = new HashSet<>();
     private Button btn_scan;
 
@@ -143,12 +144,13 @@ public class ScanActivity extends AppCompatActivity {
                                 description_bon = jsonbon.getString("description");
                                 date_limite_bon = jsonbon.getString("date_limite");
                                 codepromotion_bon = jsonbon.getString("codepromotion");
+                                type_bon = jsonbon.getString("type");
                                 String code = description_bon + " - " + codepromotion_bon;
 
-                                Pair<String, String> pair = Pair.create(code, date_limite_bon);
-                                pairs.add(pair);
+                                Bon bon = new Bon(code,date_limite_bon, codepromotion_bon,type_bon);
+                                pairs.add(bon);
 
-                                singleton.setPairList(pair);
+                                singleton.setPairList(bon);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
