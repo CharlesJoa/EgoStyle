@@ -32,7 +32,7 @@ public class BonActivity extends AppCompatActivity {
 
         Singleton singleton = Singleton.getInstance();
         ArrayList<Bon> bons = singleton.getPairList();
-        rv.setAdapter(new ListeAdapter(bons)); //contenu de la liste
+        rv.setAdapter(new ListeAdapter(bons, this.getApplicationContext())); //contenu de la liste
         rv.setLayoutManager(new LinearLayoutManager(this)); //positionnement des éléments*/
 
         /**

@@ -108,16 +108,16 @@ public class ScanActivity extends AppCompatActivity {
                 String url_bon = Utils.getConnectionStringPhrase();
                 String url_api = url_bon + phrase_code;
 
-                /** 2 - Test si déjà scanner **/
+                /** 2 - Test si déjà scanné **/
                 for (String phraseEssai : list_already_scan) {
                     if (phraseEssai.equals(phrase_code)) {
-                        Toast.makeText(this, "Code déjà scanner", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Code déjà scanné", Toast.LENGTH_LONG).show();
                     } else {
                         StringRequest stringRequest = getStringRequest(url_api);
                         queue.add(stringRequest);
                         list_already_scan.add(phrase_code);
+                        Toast.makeText(this, "Code scanné", Toast.LENGTH_LONG).show();
                     }
-                    Toast.makeText(this, "Code scanné", Toast.LENGTH_LONG).show();
                 }
                 if (list_already_scan.size() == 0) {
                     StringRequest stringRequest = getStringRequest(url_api);
@@ -145,7 +145,7 @@ public class ScanActivity extends AppCompatActivity {
                                 date_limite_bon = jsonbon.getString("date_limite");
                                 codepromotion_bon = jsonbon.getString("codepromotion");
                                 type_bon = jsonbon.getString("type");
-                                String code = description_bon + " - " + codepromotion_bon;
+                                String code = description_bon + " : " + codepromotion_bon;
 
                                 Bon bon = new Bon(code,date_limite_bon, codepromotion_bon,type_bon);
                                 pairs.add(bon);

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         final TextView textView = (TextView) findViewById(R.id.textView2);
         final RecyclerView rv = findViewById(R.id.ListBon);
-        rv.setAdapter(new ListeAdapter(bons) );
+        rv.setAdapter(new ListeAdapter(bons, this.getApplicationContext()) );
 
         /******************************************************/
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                                 bons.add(bon);
                             }
                             // Create the adapter to manage the recyclerview and send the array of the bons
-                            rv.setAdapter(new ListeAdapter(bons)); //contenu de la liste
+                            rv.setAdapter(new ListeAdapter(bons, getApplicationContext())); //contenu de la liste
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

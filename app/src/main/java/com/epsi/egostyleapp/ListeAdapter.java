@@ -1,6 +1,9 @@
 package com.epsi.egostyleapp;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,9 +28,11 @@ public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder
 
     // Create the attribute of the list for the coupons
     private final List<Bon> m_coupons;
+    private static Context context;
 
-    public ListeAdapter(ArrayList<Bon> coupons) {
+    public ListeAdapter(ArrayList<Bon> coupons, Context context) {
         m_coupons = coupons;
+        this.context = context;
     }
 
 
@@ -82,10 +87,36 @@ public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder
         // Method who manage the display
         public void display(Bon bon) {
             currentBon = bon;
+            TextView toto = itemView.findViewById(R.id.list_cell_Reduc);
+            TextView titi = itemView.findViewById(R.id.list_cell_DateLimite);
+
+            LinearLayout.LayoutParams paramsExample = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams paramsExample2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+
             if (bon.getType() != null ){
+                // Style of the bon's desc line
+                toto.setTypeface(Typeface.create("sans-serif-black",Typeface.NORMAL));
+                toto.setBackgroundColor(Color.WHITE);
+                toto.setTextColor(Color.BLACK);
+                toto.setTextSize(20);
+                paramsExample.topMargin = 80;
+                toto.setPadding(0,10,0,10);
+                paramsExample.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                toto.setLayoutParams(paramsExample);
+
+                // Style of the bon's date_limite line
+                paramsExample2.leftMargin = 750;
+                titi.setTextColor(Color.WHITE);
+                titi.setTypeface(null, Typeface.BOLD);
+                titi.setLayoutParams(paramsExample2);
                 Log.i("toto",bon.getType());
-                if (bon.getType() == "jean") {
-                    //TODO Change background img
+
+                if (bon.getType().contentEquals("jean")) {
+                    layout.setBackground(context.getResources().getDrawable(R.drawable.jeans));
+                } else if (bon.getType().contentEquals("skate")) {
+                    layout.setBackground(context.getResources().getDrawable(R.drawable.skate));
+                } else if (bon.getType().contentEquals("t-shirt")) {
+                    layout.setBackground(context.getResources().getDrawable(R.drawable.tshirt));
                 }
             }
 
