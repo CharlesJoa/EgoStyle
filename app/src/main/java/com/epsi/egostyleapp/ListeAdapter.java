@@ -100,7 +100,7 @@ public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder
                 toto.setTextColor(Color.BLACK);
                 toto.setTextSize(20);
                 paramsExample.topMargin = 80;
-                toto.setPadding(0,10,0,10);
+                toto.setPadding(5,10,5,10);
                 paramsExample.height = LinearLayout.LayoutParams.WRAP_CONTENT;
                 toto.setLayoutParams(paramsExample);
 
@@ -109,7 +109,16 @@ public class ListeAdapter extends RecyclerView.Adapter<ListeAdapter.MyViewHolder
                 titi.setTextColor(Color.WHITE);
                 titi.setTypeface(null, Typeface.BOLD);
                 titi.setLayoutParams(paramsExample2);
-                Log.i("toto",bon.getType());
+
+                // Gets linearlayout
+                LinearLayout layout = itemView.findViewById(R.id.layout_list);
+                // Gets the layout params that will allow you to resize the layout
+                LinearLayout.LayoutParams params =  new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                // Changes the height and width to the specified *pixels*
+                params.height = 350;
+                params.setMargins(30,15,30,15);
+                layout.setLayoutParams(params);
 
                 if (bon.getType().contentEquals("jean")) {
                     layout.setBackground(context.getResources().getDrawable(R.drawable.jeans));
